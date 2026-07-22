@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+*.cover
+*.log
+
+# Streamlit
+.streamlit/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Project specific
+data/*.parquet
+data/*.csv
+data/*.json
+data/current_data.parquet
+data/engine_state.json   # optional – you may want to keep this if it contains custom rules, but it's safe to ignore if you want a clean start
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large files (if any)
+*.zip
+*.tar.gz
+*.7z
