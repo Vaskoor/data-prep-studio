@@ -1,40 +1,46 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.pytest_cache/
-.coverage
-*.cover
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/
+
+# next.js
+.next/
+out/
+build/
+dist/
+
+# production
+*.tsbuildinfo
+next-env.d.ts
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# database (Prisma SQLite)
+db/*.db
+db/*.db-journal
+prisma/migrations/dev.db*
+
+# uploaded datasets (runtime)
+data/uploads/
+
+# logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Streamlit
-.streamlit/
-
-# OS junk
+# os / editors
 .DS_Store
 Thumbs.db
-
-# Project specific
-data/*.parquet
-data/*.csv
-data/*.json
-data/current_data.parquet
-data/engine_state.json   # optional – you may want to keep this if it contains custom rules, but it's safe to ignore if you want a clean start
-
-# IDE
 .vscode/
 .idea/
 *.swp
-*.swo
 
-# Large files (if any)
-*.zip
-*.tar.gz
-*.7z
+# misc
+coverage/
+.cache/
+.turbo/

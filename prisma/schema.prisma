@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//
+// MIT License — Data Prep Studio (backend)
+// Copyright (c) 2025 Data Prep Studio contributors
+//
+// Dataset model is the core persistence entity for the data-prep studio.
+// The row payload itself is stored out-of-band under /data/uploads/<id>.json
+// (see src/lib/dataprep-store.ts); Prisma only holds metadata + cached profile.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// A dataset uploaded (CSV/JSON) or generated (sample) into Data Prep Studio.
+/// The actual row payload lives on disk under data/uploads/<id>.json to keep
+/// the SQLite row small and to support streaming-style operations.
+model Dataset {
+  id           String   @id @default(cuid())
+  name         String
+  filename     String
+  source       String   // "csv" | "json" | "sample"
+  rowCount     Int
+  colCount     Int
+  qualityScore Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  columns      Json     // ColumnInfo[]
+  profile      Json?    // Profile (cached) — output of profileDataset
+  operations   Json?    // applied ops log: Array<{ kind, ops, appliedAt, summary }>
+
+  @@index([createdAt])
+}
